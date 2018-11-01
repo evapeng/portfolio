@@ -1,0 +1,192 @@
+$viewport-small: 0px;
+$viewport-medium: 768px;
+$viewport-large: 1200px;
+
+
+$grey: #333;
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+* { box-sizing: border-box; }
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+img, p, h1, h2, h3, h4, h5, h6, h6, li {
+	margin-bottom: 0;
+	font-family: 'OpenSans';
+	font-weight: 200;
+}
+
+a { text-decoration: none; color: black; }
+.link {
+	text-decoration: none;
+	color: black;
+	cursor: pointer;
+}
+
+.link:hover {
+	opacity: .8;
+}
+
+.link:visited {
+	color: black;
+}
+// .content__container {
+// 	display: flex;
+// 	flex-direction: column;
+// 	align-items: center;
+// 	width: 100%;
+// }
+
+// .content {
+// 	max-width: 1000px;
+// 	width: 80%;
+
+// 	.text_align_center {
+// 		text-align: center;
+// 	}
+
+// 	.flexGrid {
+// 		display: flex;
+// 		align-items: flex-start;
+// 		flex-wrap: wrap;
+// 		margin: 0 -20px;
+// 	}
+
+
+// }
+
+.video {
+	text-align: center;
+}
+
+
+@mixin viewport-small {
+	@media (min-width: $viewport-small) {
+		@content;
+	}
+}
+
+@mixin viewport-medium {
+  @media (min-width: $viewport-medium) {
+    @content;
+  }
+}
+
+@mixin viewport-large {
+  @media (min-width: $viewport-large) {
+    @content;
+  }
+}
+
+@mixin generate-columns($column-name) {
+	@for $i from 1 through 12 {
+		.#{$column-name}#{$i}of12 {
+			flex-basis: $i/12 * 100%;
+			max-width: $i/12 * 100%;
+			padding: 0 20px;
+		}
+	}
+}
+
+@include viewport-small{
+	@include generate-columns(small)
+}
+
+@include viewport-medium {
+	@include generate-columns(medium)
+}
+
+@include viewport-large {
+	@include generate-columns(large)
+}
+
+.container {
+	width: 90%;
+	@include viewport-medium {
+		width: 740px;
+	}
+	@include viewport-large {
+		width: 1170px;
+	}
+}
+
+.spacer {
+	height: 48px;
+	width: 100%;
+	@include viewport-medium {
+		height: 100px;	
+	}
+}
+@font-face {
+	font-family: 'OpenSans';
+	font-weight: 200;
+	font-style: normal;
+	src:  url('./res/fonts/OpenSans-Light.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'OpenSans';
+	font-weight: 200;
+	font-style: italic;
+	src:  url('./res/fonts/OpenSans-LightItalic.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'OpenSans';
+	font-weight: 400;
+	font-style: normal;
+	src:  url('./res/fonts/OpenSans-Bold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'OpenSans';
+	font-weight: 400;
+	font-style: italic;
+	src:  url('./res/fonts/OpenSans-BoldItalic.ttf') format('truetype');
+}

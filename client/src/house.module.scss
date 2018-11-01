@@ -1,0 +1,480 @@
+@import './globals.module.scss';
+@import './index.module.scss';
+
+$house-left: 750px;
+$house-right: 150px;
+$house-roof-height: 250px;
+$house-roof-height-min: 60px;
+$basement-height: 150px;
+$wall-thickness: 10px;
+$house-inner-scale: .9;
+
+$house-left-sm: 220px;
+$house-right-sm: 80px;
+$house-roof-height-sm: 140px;
+$house-roof-height-min-sm: 40px;
+$basement-height-sm: 60px;
+$house-inner-scale-sm: .83;
+
+$house-left-md: 500px;
+$house-right-md: 150px;
+$house-roof-height-md: 200px;
+$house-roof-height-min-md: 60px;
+$basement-height-md: 100px;
+$house-inner-scale-md: .88;
+
+$house-bg: $grey;
+$house-fg: #ffffff;
+$main-fs: 6rem;
+$main-fs-sm: 48px;
+$main-fs-md: 5rem;
+
+.house__container {
+	margin-left: calc(50% - (#{$house-left-sm} + #{$house-right-sm})/2);
+	padding-top: 9.5rem;
+	height: 100vh;
+	@include viewport-medium{
+		padding-top: 8rem;
+		margin-left: calc(50% - (#{$house-left-md} + #{$house-right-md})/2);
+	}
+	@include viewport-large{
+		padding-top: 8rem;
+		margin-left: calc(50% - (#{$house-left} + #{$house-right})/2);
+	}
+}
+
+.house__container__inner {
+	\position: fixed;
+}
+
+.house {
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-color: transparent $house-bg $house-bg $house-bg;
+	border-width: $house-roof-height-sm $house-left-sm $house-roof-height-sm 0px;
+	
+	position: relative;
+
+	&::before {
+		position: absolute;
+		content: "";
+		width: 0;
+		height: 0;
+		left: $house-left-sm;
+		top: -$house-roof-height-sm; /* Offset roof border */
+		border-width: $house-roof-height-sm 0px $house-roof-height-sm $house-right-sm;
+		border-style: solid;
+		border-color: transparent $house-bg $house-bg $house-bg;
+		
+	}
+	@include viewport-medium{
+		border-width: $house-roof-height-md $house-left-md $house-roof-height-md 0px;
+		&::before {
+			left: $house-left-md;
+			top: -$house-roof-height-md; /* Offset roof border */
+			border-width: $house-roof-height-md 0px $house-roof-height-md $house-right-md;
+		}
+	}
+	@include viewport-large{
+		border-width: $house-roof-height $house-left $house-roof-height 0px;
+		&::before {
+			left: $house-left;
+			top: -$house-roof-height; /* Offset roof border */
+			border-width: $house-roof-height 0px $house-roof-height $house-right;
+		}
+	}
+}
+
+@mixin base-text {
+	position: absolute;
+	> h1 { font-size: $main-fs; }
+    @content;
+}
+
+@mixin base-text-md {
+	position: absolute;
+	> h1 { font-size: $main-fs-md; }
+    @content;
+}
+
+@mixin base-text-sm {
+	position: absolute;
+	> h1 { font-size: $main-fs-sm; }
+    @content;
+}
+
+.house__right {
+	border-style: solid;
+	border-color: transparent $house-fg $house-fg $house-fg;
+	border-width: $house-roof-height-sm 0px $house-roof-height-sm $house-right-sm;
+	content: "";
+	height: 0;
+	left: calc(#{$house-left-sm} - #{$wall-thickness});
+	position: absolute;
+	top: -$house-roof-height-sm + 5px; /* Slight adjustment for scale */
+	transform: scale($house-inner-scale-sm);
+	width: 0;
+	-webkit-transition: border .1s;
+	/* Safari 4.0 - 8.0 */
+	transition: border .1s;
+
+	&::before {
+		background-color: $house-fg;
+		content: "";
+		height: 70px;
+		top: 50px;
+		position: absolute;
+		width: 10px;
+		left: -5px;
+	}
+
+	&::after {
+		background-color: $house-fg;
+		content: "";
+		height: 70px;
+		top: 50px;
+		position: absolute;
+		width: 10px;
+		left: 14px;
+	}
+
+	&:hover {
+		border-color: transparent $house-bg $house-bg $house-bg;
+	}
+
+	.house__right__text {
+		@include base-text-sm {
+			position: absolute;
+			bottom: -$house-roof-height-sm;
+			left: calc(#{-$house-right-sm} + #{$wall-thickness/2}); 
+		}
+	}
+
+	&:hover .house__right__text {
+		color: $house-fg;
+		text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF1177, 0 0 70px #FF1177, 0 0 80px #FF1177, 0 0 100px #FF1177, 0 0 150px #FF1177;
+	}
+
+	@include viewport-medium {
+		border-width: $house-roof-height-md 0px $house-roof-height-md $house-right-md;
+		transform: scale($house-inner-scale-md);
+		left: $house-left-md - $wall-thickness;
+		top: -$house-roof-height-md + 5px; /* Slight adjustment for scale */
+		.house__right__text {
+			@include base-text-md {
+				bottom: -$house-roof-height-md;
+				left: calc(#{-$house-right-md} + #{$wall-thickness}); 
+			}
+		}
+	}
+
+	@include viewport-large {
+		border-width: $house-roof-height 0px $house-roof-height $house-right;
+		transform: scale($house-inner-scale);
+		left: $house-left - $wall-thickness;
+		top: -$house-roof-height + 5px; /* Slight adjustment for scale */
+		.house__right__text {
+			@include base-text {
+				bottom: -$house-roof-height;
+				left: calc(#{-$house-right} + #{$wall-thickness}); 
+			}
+		}
+	}
+}
+
+$window-top: -20px;
+$window-top-sm: -60px;
+$window-left: 130px;
+$window-left-sm: 165px;
+$pane-offset: 3em;
+$pane-offset-md: 3em;
+$pane-offset-sm: 2em;
+$window-offset: 10em;
+
+$pane-size: 1em;
+$pane-size-md: 1em;
+$pane-size-sm: .75em;
+
+$window-offset-md: 8em;
+$window-offset-sm: 4em;
+
+
+.house__left {
+	height: 0;
+	top: calc(#{-$house-roof-height-sm} + #{$wall-thickness*2});
+	border-style: solid;
+	border-color: transparent $house-fg $house-fg $house-fg;
+	border-width: $house-roof-height-sm $house-left-sm $house-roof-height-min-sm 0px;
+	position: absolute;
+	transform: scale(0.83);
+	-webkit-transition: border .1s;
+	/* Safari 4.0 - 8.0 */
+	transition: border .1s;
+
+	&::before {
+		content: "";
+		top: $window-top-sm;
+		left: $window-left-sm;
+		box-shadow: 0 0 0 $pane-size-sm white,
+		            0 $pane-offset-sm 0 $pane-size-sm white,
+		            $pane-offset-sm 0 0 $pane-size-sm white,
+		            $pane-offset-sm $pane-offset-sm 0 $pane-size-sm white;
+
+		position: absolute;
+	}
+
+	&:hover {
+		border-color: transparent $house-bg $house-bg $house-bg;
+	}
+
+	.house__left__text {
+		@include base-text-sm {
+			bottom: -$house-roof-height-min-sm;
+			width: calc(#{$house-left-sm} - #{$wall-thickness});
+			color: $house-bg;
+			text-align: right;
+		}
+	}
+
+	&:hover .house__left__text {
+		color: $house-fg;
+		text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #24efff, 0 0 70px #24efff, 0 0 80px #24efff, 0 0 100px #24efff, 0 0 150px #24efff;
+	}
+
+	@include viewport-medium {
+		transform: scale(0.92);
+		top: calc(#{-$house-roof-height-md} + #{$wall-thickness*2});
+		border-width: $house-roof-height-md $house-left-md $house-roof-height-min-md 0px;
+		&::before {
+			top: $window-top;
+			left: $window-left;
+			box-shadow: 0 0 0 $pane-size-md white,
+		            0 $pane-offset-md 0 $pane-size-md white,
+		            $pane-offset-md 0 0 $pane-size-md white,
+		            $pane-offset-md $pane-offset-md 0 $pane-size-md white;
+		}
+		.house__left__text {
+			@include base-text-md {
+				bottom: -$house-roof-height-min-md;
+				width: $house-left-md - $wall-thickness;
+			}
+		}
+	}
+
+	@include viewport-large {
+		top: calc(#{-$house-roof-height} + #{$wall-thickness*2});
+		border-width: $house-roof-height $house-left $house-roof-height-min 0px;
+		transform: scale(0.95);
+		&::before {
+			top: $window-top;
+			left: $window-left;
+			box-shadow: 0 0 0 $pane-size white,
+		            0 $pane-offset 0 $pane-size white,
+		            $pane-offset 0 0 $pane-size white,
+		            $pane-offset $pane-offset 0 $pane-size white,
+
+		            $window-offset 0 0 $pane-size white,
+		            $window-offset $pane-offset 0 $pane-size white,
+		            $window-offset + $pane-offset 0 0 $pane-size white,
+		            $window-offset + $pane-offset $pane-offset 0 $pane-size white,
+
+		            $window-offset*2 0 0 $pane-size white,
+		            $window-offset*2 $pane-offset 0 $pane-size white,
+		            $window-offset*2 + $pane-offset 0 0 $pane-size white,
+		            $window-offset*2 + $pane-offset $pane-offset 0 $pane-size white;
+		}
+		.house__left__text {
+			@include base-text {
+				bottom: -$house-roof-height-min;
+				width: $house-left - $wall-thickness;
+			}
+		}
+	}
+}
+
+$stair-width: 8px;
+$stair-offset-x: 12px;
+$stair-step-x: 48px;
+$stair-step-y: 40px;
+
+$stair-width-md: 6px;
+$stair-offset-x-md: 10px;
+$stair-step-x-md: 48px;
+$stair-step-y-md: 30px;
+
+$stair-width-sm: 6px;
+$stair-offset-x-sm: 10px;
+$stair-step-x-sm: 48px;
+$stair-step-y-sm: 30px;
+
+.house__bottom {
+	position: absolute;
+	content: "";
+	left: $wall-thickness * 2;
+	top: $house-roof-height-min-sm + $wall-thickness * 3;
+	width: calc(#{$house-left-sm} - #{$wall-thickness} * 4);
+	height: $house-roof-height-sm - $house-roof-height-min-sm - $wall-thickness * 5;
+	background-color: white;
+	-webkit-transition: background .1s;
+	/* Safari 4.0 - 8.0 */
+	transition: background .1s;
+	&::before {
+		content: "";
+		right: 60px;
+		top: 10px;
+		position: absolute;
+	}
+	&:hover {
+		background-color: $house-bg;
+	}
+	&:hover .figure {
+		display: none;
+	}
+	
+	&:hover .house__bottom__text {
+		color: white;
+		text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #50C252, 0 0 70px #50C252, 0 0 80px #50C252, 0 0 100px #50C252, 0 0 150px #50C252;
+	}
+	.house__bottom__text {
+		@include base-text-sm {
+			transform-origin: center bottom;
+			transform: scale($house-inner-scale-sm);
+			bottom: 0;
+			width: calc(#{$house-left-sm} - #{$wall-thickness} * 4);
+			text-align: center;
+		}
+	}
+
+	@include viewport-medium {
+		top: $house-roof-height-min-md + $wall-thickness * 3;
+		width: $house-left-md - $wall-thickness * 4;
+		height: $house-roof-height-md - $house-roof-height-min-md - $wall-thickness * 5;
+		&::before {
+			box-shadow: 0 0 0 $stair-width-md white,
+		            $stair-offset-x-md 0 0 $stair-width-md white,
+		            $stair-offset-x-md*2 0 0 $stair-width-md white,
+		            $stair-offset-x-md*3 0 0 $stair-width-md white,
+
+		            $stair-offset-x-md*3 - $stair-step-x-md $stair-step-y-md 0 $stair-width-md white,
+		            $stair-offset-x-md*2 - $stair-step-x-md $stair-step-y-md 0 $stair-width-md white,
+		            $stair-offset-x-md - $stair-step-x-md $stair-step-y-md 0 $stair-width-md white,
+		            0 - $stair-step-x-md $stair-step-y-md 0 $stair-width-md white,
+
+		            $stair-offset-x-md*3 - $stair-step-x-md*2 $stair-step-y-md*2 0 $stair-width-md white,
+		            $stair-offset-x-md*2 - $stair-step-x-md*2 $stair-step-y-md*2 0 $stair-width-md white,
+		            $stair-offset-x-md - $stair-step-x-md*2 $stair-step-y-md*2 0 $stair-width-md white,
+		            0 - $stair-step-x-md*2 $stair-step-y-md*2 0 $stair-width-md white,
+
+		            $stair-offset-x-md*3 - $stair-step-x-md*3 $stair-step-y-md*3 0 $stair-width-md white,
+		            $stair-offset-x-md*2 - $stair-step-x-md*3 $stair-step-y-md*3 0 $stair-width-md white,
+		            $stair-offset-x-md - $stair-step-x-md*3 $stair-step-y-md*3 0 $stair-width-md white,
+		            0 - $stair-step-x-md*3 $stair-step-y-md*3 0 $stair-width-md white;
+		}
+		.house__bottom__text {
+			@include base-text-md {
+				text-align: left;
+				width: calc(#{$house-left-md} - #{$wall-thickness} * 4);
+			}
+		}
+	}
+
+	@include viewport-large {
+		top: $house-roof-height-min + $wall-thickness * 3;
+		width: $house-left - $wall-thickness * 4;
+		height: $house-roof-height - $house-roof-height-min - $wall-thickness * 5;
+		&::before {
+			box-shadow: 0 0 0 $stair-width white,
+		            $stair-offset-x 0em 0 $stair-width white,
+		            $stair-offset-x*2 0 0 $stair-width white,
+		            $stair-offset-x*3 0 0 $stair-width white,
+
+		            $stair-offset-x*3 - $stair-step-x $stair-step-y 0 $stair-width white,
+		            $stair-offset-x*2 - $stair-step-x $stair-step-y 0 $stair-width white,
+		            $stair-offset-x - $stair-step-x $stair-step-y 0 $stair-width white,
+		            0 - $stair-step-x $stair-step-y 0 $stair-width white,
+
+		            $stair-offset-x*3 - $stair-step-x*2 $stair-step-y*2 0 $stair-width white,
+		            $stair-offset-x*2 - $stair-step-x*2 $stair-step-y*2 0 $stair-width white,
+		            $stair-offset-x - $stair-step-x*2 $stair-step-y*2 0 $stair-width white,
+		            0 - $stair-step-x*2 $stair-step-y*2 0 $stair-width white,
+
+		            $stair-offset-x*3 - $stair-step-x*3 $stair-step-y*3 0 $stair-width white,
+		            $stair-offset-x*2 - $stair-step-x*3 $stair-step-y*3 0 $stair-width white,
+		            $stair-offset-x - $stair-step-x*3 $stair-step-y*3 0 $stair-width white,
+		            0 - $stair-step-x*3 $stair-step-y*3 0 $stair-width white,
+
+		            $stair-offset-x*3 - $stair-step-x*4 $stair-step-y*4 0 $stair-width white,
+		            $stair-offset-x*2 - $stair-step-x*4 $stair-step-y*4 0 $stair-width white,
+		            $stair-offset-x - $stair-step-x*4 $stair-step-y*4 0 $stair-width white,
+		            0 - $stair-step-x*4 $stair-step-y*4 0 $stair-width white;
+		}
+		.house__bottom__text {
+			@include base-text {
+				text-align: center;
+				width: calc(#{$house-left} - #{$wall-thickness} * 4);
+			}
+		}
+	}
+}
+
+.house__basement {
+	top: $house-roof-height-sm;
+	height: $basement-height-sm;
+	transform: scale($house-inner-scale);
+	background-color: $house-fg;
+	position: absolute;
+	width: calc(#{$house-left-sm} + #{$house-right-sm});
+	z-index: 1;
+	-webkit-transition: background .1s, color .1s;
+	/* Safari 4.0 - 8.0 */
+	transition: background .1s, color .1s;
+	&:hover {
+		background-color: $house-bg;
+	}
+	&:hover .house__basement__text {
+		color: white;
+		text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #E48E5E, 0 0 70px #E48E5E, 0 0 80px #E48E5E, 0 0 100px #E48E5E, 0 0 150px #E48E5E;
+	}
+	.house__basement__text {
+		@include base-text-sm {
+			bottom: 0;
+			left: $wall-thickness;
+		}
+	}
+
+	@include viewport-medium {
+		top: $house-roof-height-md;
+		height: $basement-height-md;
+		width: $house-left-md + $house-right-md;
+		.house__basement__text {
+			@include base-text-md { }
+		}
+	}
+	@include viewport-large {
+		top: $house-roof-height;
+		height: $basement-height;
+		width: $house-left + $house-right;
+		.house__basement__text {
+			@include base-text { }
+		}
+	}
+
+}
+
+.ground {
+	position: relative;
+	width: 100vw;
+	right: calc(50% - (#{$house-left-sm} + #{$house-right-sm})/2);
+	height: calc(100vh - #{$house-roof-height-sm} * 2);
+	bottom: $wall-thickness * 2;
+	background-color: $house-bg;
+	@include viewport-medium {
+		right: calc(50% - (#{$house-left-md} + #{$house-right-md})/2);
+		height: calc(100vh - #{$house-roof-height-md} * 2);
+	}
+	@include viewport-large {
+		right: calc(50% - (#{$house-left} + #{$house-right})/2);
+		height: calc(100vh - #{$house-roof-height} * 2);
+	}
+}
