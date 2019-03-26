@@ -1,0 +1,181 @@
+
+/******************************************************************************/
+/* FONTS
+/******************************************************************************/
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../res/fonts/calendar/icomoon.eot?jquyau');
+  src:  url('../res/fonts/calendar/icomoon.eot?jquyau#iefix') format('embedded-opentype'),
+    url('../res/fonts/calendar/icomoon.ttf?jquyau') format('truetype'),
+    url('../res/fonts/calendar/icomoon.woff?jquyau') format('woff'),
+    url('../res/fonts/calendar/icomoon.svg?jquyau#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-moon:before {
+  content: "\e900";
+}
+
+span, p {
+  font-family: 'Menlo';
+  font-size: 12px;
+}
+
+.App {
+  text-align: center;
+  font-family: 'Menlo';
+}
+
+.calendarWrapper {
+  height: 17in;
+  margin: auto;
+  width: 11in;
+  padding: .5in .25in;
+}
+
+.calendar {
+  height: 94%;
+}
+
+.calendar .icon-moon {
+  font-size: 11px;
+}
+
+.calendarWrapper .description {
+  height: 6%;
+}
+
+.calendarWrapper .description p {
+  padding-bottom: 12px;
+  text-align: left;
+}
+
+.calendar .header {
+  padding-bottom: 12px;
+}
+
+.calendar p {
+  font-size: 12px;
+}
+
+.calendar .header {
+  padding-left: 12px;
+}
+
+.calendar .cellWrapper {
+  border-left: .25px solid black;
+  padding-left: 12px;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  padding-top: 12px;
+  overflow: hidden;
+}
+
+.calendar .cell {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  margin-top: -12px;
+  padding-right: 24px;
+}
+
+.calendar .cell p:first-child {
+  padding-top: 12px;
+  margin-bottom: 5px;
+}
+
+.calendar .cell .cellInner {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.calendar .cell .cellInner .date {
+  align-self: flex-start;
+}
+
+.calendar .cell .cellInner .icons {
+  display: flex;
+  align-items: center;
+}
+
+.calendar .cell .cellInner .icons .icon-moon {
+  margin-right: 3px;
+}
+
+.calendar .cell .label {
+   font-size: 47px;
+   font-style: italic;
+   transform: skewX(-18deg);
+   right: 5px;
+   top: 12px;
+   position: absolute;
+   opacity: .2;
+}
+
+.calendar .cell .holiday {
+  background-color: black;
+  border-radius: 4px;
+  text-align: center;
+  padding: .5px 3px;
+  min-width: 20px;
+}
+
+.calendar .cell .holiday span {
+  position: relative;
+  top: -1px;
+  color: white;
+  font-weight: bold;
+  font-size: 10px;
+}
+
+.calendar .cellWrapper:nth-child(7n + 6) .cell .label,
+.calendar .cellWrapper:nth-child(7n + 7) .cell .label {
+  right: -3px; /* make up for border */
+}
+
+.calendar .cellWrapper:nth-child(7n + 6) .cell {
+  border-left: 2px solid black;
+  margin-left: -10px;
+  padding: 0 12px 0 8px; /* add to border-left to make up total */
+}
+
+.calendar .cellWrapper:nth-child(7n + 7) .cell {
+  border-right: 2px solid black;
+  right: 1px;
+}
+
+.calendar .cellWrapper:nth-child(7n + 7) .cell > * {
+  margin-left: 13px;
+}
+
+input {
+  width: 100%;
+}
+
+@media print
+{    
+    input
+    {
+        display: none !important;
+    }
+}

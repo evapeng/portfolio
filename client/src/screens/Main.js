@@ -168,6 +168,7 @@ export default class Main extends React.Component {
 							<div className = {house.ground}> </div>
 						</div>
 					</div>
+					<div className = {styles.mainContent}>
 						<div className = {arrowStyle} ref={ header => this.header = header }>
 							<MediaQuery maxDeviceWidth={768}>
 								<FontAwesomeIcon icon={faArrowUp} style={{fontSize: 40}}/>
@@ -215,6 +216,7 @@ export default class Main extends React.Component {
 								</ScrollableAnchor>
 							</TokenContext.Provider>
 						</div>
+					</div>
 					<About open={this.state.aboutOpen} closeFnc={() => {this.setState({aboutOpen: !this.state.aboutOpen})}}/>
 					<Archive open={this.state.archiveOpen} closeFnc={() => {this.setState({archiveOpen: !this.state.archiveOpen})}}/>
 				</div>

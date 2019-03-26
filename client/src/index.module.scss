@@ -99,13 +99,17 @@ html, body {
  }
 */
 
-.scrollHeader {
+.mainContent {
 	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+
+.scrollHeader {
+	
 	font-size: 60px;
 	/*background-color: #AEAEAE;*/
 	background-color: #FFF244;
-	bottom: 0;
-	width: 100%;
 	z-index: 5;
 	display: flex;
 	justify-content: space-between;
